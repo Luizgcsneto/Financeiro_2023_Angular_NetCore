@@ -11,7 +11,7 @@ namespace Entities.Notificacoes
     {
         public Notifica()
         {
-            Notificacoes = new List<Notifica>();    
+            Notificacoes = new List<Notifica>();
         }
 
         [NotMapped]
@@ -22,5 +22,33 @@ namespace Entities.Notificacoes
 
         [NotMapped]
         public List<Notifica> Notificacoes { get; set; }
+
+        public bool ValidaPropriedadeString(string valor, string nomePropriedade)
+        {
+            if (string.IsNullOrWhiteSpace(valor) || string.IsNullOrWhiteSpace(nomePropriedade))
+            {
+                Notificacoes.Add(new Notifica
+                {
+                    Mensagem = "Campo orbigatório",
+                    NomePropriedade = nomePropriedade
+                });
+                return false;
+            }
+            return true;
+        }
+
+        public bool ValidaPropriedadeInt(int valor, string nomePropriedade)
+        {
+            if (valor < 1 || string.IsNullOrWhiteSpace(nomePropriedade))
+            {
+                Notificacoes.Add(new Notifica
+                {
+                    Mensagem = "Campo orbigatório",
+                    NomePropriedade = "nomePropriedade"
+                });
+                return false;
+            }
+            return true;
+        }
     }
 }
