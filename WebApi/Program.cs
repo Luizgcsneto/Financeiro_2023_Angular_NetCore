@@ -21,7 +21,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(
     options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ContextoBase>();
 
-builder.Services.AddSingleton(typeof(InterfaceGeneric<>), typeof(RepoitoryGenerics<>));
+builder.Services.AddSingleton(typeof(InterfaceGeneric<>), typeof(RepositorioGenerics<>));
 
 var app = builder.Build();
 

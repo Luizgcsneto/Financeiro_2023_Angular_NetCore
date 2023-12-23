@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 
 namespace Infra.Repositorios.Generics
 {
-    public class RepoitoryGenerics<T> : InterfaceGeneric<T>, IDisposable where T : class
+    public class RepositorioGenerics<T> : InterfaceGeneric<T>, IDisposable where T : class
     {
         private readonly DbContextOptions<ContextoBase> _optionsBuilder;
-        public RepoitoryGenerics()
+        public RepositorioGenerics()
         {
             _optionsBuilder = new DbContextOptions<ContextoBase>();
         }
