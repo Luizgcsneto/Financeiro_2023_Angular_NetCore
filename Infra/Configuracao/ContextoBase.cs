@@ -25,7 +25,7 @@ namespace Infra.Configuracao
 
         public string ObterStringConexao()
         {
-            return "Server=DESKTOP-QR5U840\\SQLEXPRESS;Database=;Trusted_Connection=True;";
+            return "Server=DESKTOP-QR5U840\\SQLEXPRESS;Database=FINANCEIRO_2023;Trusted_Connection=True;";
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
