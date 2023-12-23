@@ -1,24 +1,45 @@
 ﻿using Domain.Interfaces.IUsuarioSistemaFinanceiro;
 using Entities.Entidades;
+using Infra.Configuracao;
 using Infra.Repositorios.Generics;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repositorios
 {
     public class RepositorioUsuarioSistemaFinanceiro : RepositorioGenerics<UsuarioSistemaFinanceiro>, InterfaceUsuarioSistemaFinanceiro
     {
-        public Task<IList<UsuarioSistemaFinanceiro>> ListarUsuarioSistemas(int idSistema)
+        private readonly DbContextOptions<ContextoBase> _optionsBuilder;
+        public RepositorioUsuarioSistemaFinanceiro()
         {
-            throw new NotImplementedException();
+            _optionsBuilder = new DbContextOptions<ContextoBase>();
+        }
+        public async Task<IList<UsuarioSistemaFinanceiro>> ListarUsuarioSistemas(int idSistema)
+        {
+            using (var banco = new ContextoBase(_optionsBuilder))
+            {
+                return await banco.UsuarioSistemaFinanceiro.Where(
+                    s => s.IdSistema == idSistema).AsNoTracking().ToListAsync();
+
+            }
         }
 
-        public Task<UsuarioSistemaFinanceiro> ObterUsuarioPorEmail(string emailUsuario)
+        public async Task<UsuarioSistemaFinanceiro> ObterUsuarioPorEmail(string emailUsuario)
         {
-            throw new NotImplementedException();
+            using(var banco = new ContextoBase(_optionsBuilder))
+            {
+                return await banco.UsuarioSistemaFinanceiro
+                    .AsNoTracking().FirstOrDefaultAsync(x => x.EmailUsuario.Equals(emailUsuario));
+            }
         }
 
-        public Task RemoverUsuarios(List<UsuarioSistemaFinanceiro> usuarios)
+        public async Task RemoverUsuarios(List<UsuarioSistemaFinanceiro> usuarios)
         {
-            throw new NotImplementedException();
+            using(var banco =new ContextoBase(_optionsBuilder))
+            {
+                banco.UsuarioSistemaFinanceiro.RemoveRange(usuarios);
+
+                await banco.SaveChangesAsync();
+            }
         }
     }
 }
