@@ -44,5 +44,29 @@ namespace WebApi.Controllers
 
             return Task.FromResult(sistemaFinanceiro);
         }
+
+        [HttpGet("/api/ObterSistemaFinaneiro")]
+        [Produces("application/json")]
+        public async Task<object> ObterSistemaFinaneiro(int id)
+        {
+            return _interfaceSistemaFinanceiro.GetEntityById(id);
+        }
+
+        [HttpDelete("/api/DeleteSistemaFinanceiro")]
+        [Produces("application/json")]
+        public async Task<object> DeleteSistemaFinanceiro(SistemaFinanceiro sistemaFinanceiro)
+        {
+            try
+            {
+                var sistema = await _interfaceSistemaFinanceiro.GetEntityById(sistemaFinanceiro.Id);
+
+                await _interfaceSistemaFinanceiro.Delete(sistema);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
