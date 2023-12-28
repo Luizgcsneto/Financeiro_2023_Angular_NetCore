@@ -89,6 +89,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+var devClient = "http://localhost:4200";
+app.UseCors(x => x.AllowAnyOrigin()
+.AllowAnyMethod()
+.AllowAnyHeader()
+.WithOrigins(devClient));
+
 app.UseAuthentication();
 app.UseAuthorization();
 
